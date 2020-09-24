@@ -1,0 +1,12 @@
+name: Covid-DashBoard
+title: Covid-DashBoard
+username:
+account: milindparvatia
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2875792
+bundleId: 3664748
+url: https://milindparvatia.shinyapps.io/Covid-DashBoard/
+when: 1600929074.87049
+asMultiple: FALSE
+asStatic: FALSE
