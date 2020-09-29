@@ -9,46 +9,75 @@
 
 library(shiny)
 library(shinydashboard)
+library(markdown)
+library(plotly)
+library(tidyr)
+library(dplyr)
+library(readr)
+library(magrittr)
+library(lattice)
+library(ggplot2)
+library(lubridate)
 
-ui <- dashboardPage(
-    dashboardHeader(title = "Basic dashboard"),
-    ## Sidebar content
-    dashboardSidebar(
-        sidebarMenu(
-            menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-            menuItem("Widgets", tabName = "widgets", icon = icon("th"))
-        )
+#importing dataset
+covid_data <- read_csv("covid-data.csv")
+
+#targeting the latest date
+latestDate <- max(covid_data$date)
+
+#freezing the data
+freezed_data <- covid_data %>% filter(date==latestDate)
+
+#Filtering the data continent wise
+Africa <-freezed_data %>% filter(continent == 'Africa')
+Asia <-freezed_data %>% filter(continent == 'Asia')
+Europe <-freezed_data %>% filter(continent == 'Europe')
+North_America <-freezed_data %>% filter(continent == 'North America')
+Oceania <-freezed_data %>% filter(continent == 'Oceania')
+South_America <-freezed_data %>% filter(continent == 'South America')
+
+
+
+
+comb <- freezed_data %>% filter(location == 'Australia' |
+                                  location == 'United States' |
+                                  location == 'Mexico' |
+                                  location == 'India'|
+                                  location == 'South Africa' |
+                                  location == 'France' |
+                                  location == 'Italy' |
+                                  location == 'United Kingdom' |
+                                  location == 'Brazil' |
+                                  location == 'Iran' |
+                                  location == 'Egypt')
+ui <- shinyUI(
+  fluidPage(
+    navbarPage("Covid-19 Analysis",
+               tabPanel("Plot 1",
+                        titlePanel('GDP vs. Hospital beds per Deaths'),
+                        plotlyOutput("casesPlot")
+                        ),
+               tabPanel("plot 2",
+                        titlePanel("plot 1"),
+                        plotlyOutput("casesPlot2")
+                        ),
+               tabPanel("plot 3"),
+               tabPanel("plot 4"),
+               tabPanel("plot 5"),
+               tabPanel("plot 6"),
+               tabPanel("Summary")
     ),
-    dashboardBody(
-        tabItems(
-            # First tab content
-            tabItem(tabName = "dashboard",
-                    fluidRow(
-                        box(plotOutput("plot1", height = 250)),
-                        
-                        box(
-                            title = "Controls",
-                            sliderInput("slider", "Number of observations:", 1, 100, 50)
-                        )
-                    )
-            ),
-            
-            # Second tab content
-            tabItem(tabName = "widgets",
-                    h2("Widgets tab content")
-            )
-        )
-    )
+  )
 )
 
 server <- function(input, output) {
-    set.seed(122)
-    histdata <- rnorm(500)
-    
-    output$plot1 <- renderPlot({
-        data <- histdata[seq_len(input$slider)]
-        hist(data)
-    })
+  
+  output$casesPlot <- renderPlotly({
+      comb %>%
+      ggplot(aes(x=gdp_per_capita, y=hospital_beds_per_thousand, size=total_deaths, color=location)) +
+      geom_point(alpha=0.5) +
+      scale_size(range = c(.1, 24), name="Deaths")
+  })
 }
-
-shinyApp(ui, server)
+# Run the application 
+shinyApp(ui = ui, server = server)
