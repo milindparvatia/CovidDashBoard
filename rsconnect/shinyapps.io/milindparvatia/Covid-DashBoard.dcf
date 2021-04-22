@@ -5,9 +5,9 @@ account: milindparvatia
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2875792
-bundleId: 3683222
+bundleId: 3687639
 url: https://milindparvatia.shinyapps.io/Covid-DashBoard/
-when: 1601386580.9664
+when: 1601475878.53474
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: 1601366070936_ques2_3.rmd|app_extra.R|temp.r
+ignoredFiles: 1601366070936_ques2_3.rmd|1601456706546_ques2_3.rmd|1601459636778_ques2_3.rmd|presentation.pptx|temp.r

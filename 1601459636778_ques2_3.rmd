@@ -1,0 +1,95 @@
+---
+title: "ques2_3"
+author: "Somya Singhal(S3813520)"
+date: "29/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+```{r cars}
+library(tidyr)
+library(dplyr)
+library(readr)
+library(readxl)
+library(magrittr)
+library(lattice)
+library(ggplot2)
+library(lubridate)
+
+bse_index <- read_csv("Datasets/Stockmarket/BSE.csv")
+bse_index <- read_csv("Datasets/Stockmarket/BSE.csv")
+bse_index <- read_csv("Datasets/Stockmarket/BSE.csv")
+bse_index <- read_csv("Datasets/Stockmarket/BSE.csv")
+bse_index <- read_csv("Datasets/Stockmarket/BSE.csv")
+bse_index <- read_csv("Datasets/Stockmarket/BSE.csv")
+bse_index <- read_csv("Datasets/Stockmarket/BSE.csv")
+```
+
+
+```{r}
+
+
+
+#ques3
+
+ggplot(c,aes(x=stringency_index,y=total_cases,colour=location,group=location,fill=location))+
+  geom_line(size = 0.7)+
+  scale_y_continuous(breaks = seq(0,50000,10000)) +
+  labs(title = " Effect of stringent measures on covid cases",
+       x = "stringency index",
+       y = "The number of total cases") +
+  theme(axis.text.x = element_text(angle = 90,vjust = 0.5))
+
+
+#ques 7
+
+##volatility
+
+
+ggplot(refine, 
+       aes(x = Even, 
+           fill = `Degree of volatility`)) + 
+  geom_bar(position = "dodge")+
+  labs(title = " events affecting volatlity",
+       x = "events",
+       y = " count") +
+  theme(axis.text.x = element_text(angle = 90,vjust = 0.5))
+
+
+
+
+ggplot(refine, 
+       aes(x = Even, 
+           fill = Country)) + 
+  geom_bar(position = "dodge")+
+  labs(title = " events affecting volatlity in different countries",
+       x = "events",
+       y = " count") +
+  theme(axis.text.x = element_text(angle = 90,vjust = 0.5))
+
+
+#trade
+
+
+ggplot(data = trade, aes(x=Year, y=Cumulative)) + geom_boxplot(aes(fill=Direction))+
+  facet_wrap( ~ Year, scales="free") +
+  xlab("Year") + ylab(" $ Value") + ggtitle("Impact on export and import")
+
+
+
+
+```
+```{r}
+
+ggplot(data = trade, aes(x=Year, y=Cumulative)) + 
+  geom_boxplot(aes(fill=Direction)) +
+  facet_wrap( ~ Year, scales="free") +
+  xlab("Year") + ylab(" $ Value") + ggtitle("Impact on export and import")
+
+```
